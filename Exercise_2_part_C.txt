@@ -1,0 +1,23 @@
+Source: "https://ravikiran-web3.hashnode.dev/diamond-proxy-pattern"
+
+Diamond Proxy Pattern (EIP-2535): Like a LEGO Set for Smart Contracts
+
+Okay, so there’s this upgrade pattern called the Diamond Proxy (EIP-2535), and it’s way weirder than the basic Transparent and UUPS proxies. Imagine if your smart contract was a Swiss Army knife, but instead of one blade, you could snap on a flamethrower, a pizza cutter, or a tiny robot that does your taxes. That’s the Diamond Pattern. Sort of.
+How It Actually Works
+
+Instead of shoving all your contract’s logic into one massive, anxiety-inducing file (RIP to the 24KB size limit), you split everything into mini-contracts called facets. The main “Diamond” contract is like the CEO of delegation—it holds a cheat sheet (a lookup table) that maps function selectors (those 4-byte thingies) to the addresses of your facets. When someone calls a function, the Diamond CEO goes, “Ah, this function lives in that facet,” and forwards the call there. Need to fix a bug? Just swap out the facet, like updating a single app on your phone instead of reinstalling the whole operating system (looking at you, UUPS).
+Vs. Transparent Proxy: “But Why Tho?”
+
+    Transparent Proxy: Uses one logic contract. Upgrading it is like replacing an entire engine just to fix a squeaky wheel. The Diamond, though, lets you surgically replace only the wheel (or add cupholders, if you’re fancy). Plus, no more crying over the 24KB contract size limit—your code is now spread across facets like a buffet.
+
+    UUPS Proxy: Here, upgrade logic lives in the implementation contract. It’s lighter on gas, sure, but upgrading still means redeploying the whole thing. Diamond? Nah. You can update one facet while the rest of your contract chills untouched. It’s like fixing the Wi-Fi router without having to reboot the entire house.
+
+TL;DR: Why Diamond Proxy Rules
+
+    Modularity: Upgrade facets like swapping out LEGO pieces. No more “all-or-nothing” redeploys.
+
+    Scalability: Avoid the 24KB limit by splitting your code. Think of it as a contract-size diet plan.
+
+    Precision: Only touch what’s broken. No more sledgehammer-to-fix-a-paperclip situations.
+
+If Transparent and UUPS proxies are flip phones, the Diamond Pattern is a smartphone with modular apps. Need a new feature? Just download a facet. Need to patch a bug? Delete the glitchy app, not the whole phone. It’s basically the uno reverse card of upgrade patterns—flexible, scalable, and kinda feels like cheating.
